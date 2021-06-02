@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+      
+      <h3>
+         <a href = "{{ url_for('show_all') }}">Run Diary</a>
+      </h3>
+      
+      <hr/>
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+		
+      <h3>runs (<a href = "{{ url_for('new') }}">Add run
+         </a>)</h3>
+      
+      <table>
+         <thead>
+            <tr>
+               <th>typeofrun</th>
+               <th>length</th>
+               <th>location</th>
+               <th>time</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for run in runs %}
+               <tr>
+                  <td>{{ run.typeofrun }}</td>
+                  <td>{{ run.length }}</td>
+                  <td>{{ run.location }}</td>
+                  <td>{{ run.time }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      
+   </body>
+</html>

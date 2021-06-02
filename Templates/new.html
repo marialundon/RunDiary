@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+   <body>
+   
+      <h3>Runs</h3>
+      <hr/>
+      
+      {%- for category, message in get_flashed_messages(with_categories = true) %}
+         <div class = "alert alert-danger">
+            {{ message }}
+         </div>
+      {%- endfor %}
+      
+      <form action = "{{ request.path }}" method = "post">
+        <label for = "typeofrun">Type</label><br>
+        <input type = "text" name = "typeofrun" placeholder = "typeofrun" /><br>
+        <label for = "email">Length</label><br>
+        <input type = "text" name = "length" placeholder = "length" /><br>
+        <label for = "location">Location</label><br>
+        <textarea name = "location" placeholder = "location"></textarea><br>
+        <label for = "Time">Time</label><br>
+        <input type = "text" name = "time" placeholder = "time" /><br>
+        <input type = "submit" value = "Submit" />
+     </form>
+   </body>
+</html>

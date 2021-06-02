@@ -1,5 +1,11 @@
 {
     "python.pythonPath": "c:\\Users\\Clare\\Documents\\RunDiary\\venv\\Scripts\\python.exe",
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_flask_sqlalchemy",
+        "pylint_flask"
+    ]
 }
