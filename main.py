@@ -38,8 +38,19 @@ def new():
             flash('Record was successfully added')
             return redirect(url_for('show_all'))
     return render_template('new.html')
-    
 
+
+@app.route('/data')
+def data():
+    runs = Runs.query.all()
+    for run in runs:
+        print(run.typeofrun)
+        print(run.location)
+        print(run.length)
+        print(run.time)
+    return render_template('data.html',data = runs)
+
+    
 if __name__ == '__main__':
     db.create_all()
     app.run(debug = True)
