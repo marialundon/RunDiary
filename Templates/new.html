@@ -12,13 +12,13 @@
       {%- endfor %}
       
       <form action = "{{ request.path }}" method = "post">
-        <label for = "typeofrun">Type</label><br>
+        <label for = "typeofrun">typeofrun</label><br>
         <input type = "text" name = "typeofrun" placeholder = "typeofrun" /><br>
-        <label for = "email">Length</label><br>
+        <label for = "length">length</label><br>
         <input type = "text" name = "length" placeholder = "length" /><br>
-        <label for = "location">Location</label><br>
-        <textarea name = "location" placeholder = "location"></textarea><br>
-        <label for = "Time">Time</label><br>
+        <label for = "location">location</label><br>
+        <input type = "text" name = "location" placeholder = "location" /><br>
+        <label for = "time">time</label><br>
         <input type = "text" name = "time" placeholder = "time" /><br>
         <input type = "submit" value = "Submit" />
      </form>
