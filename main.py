@@ -44,13 +44,17 @@ def new():
 def data():
     runs = Runs.query.all()
     for run in runs:
-        print(run.typeofrun)
-        print(run.location)
-        print(run.length)
-        print(run.time)
-    return render_template('data.html',data = runs)
+        return render_template('data.html',data = runs)
 
-    
+
+@app.route('/delete', methods=['POST'])
+def delete_entry():
+    db.execute('delete from entries where typeofrun = ?', request.form.get('typeofrun'))
+    db.session.commit()
+    flash('Entry deleted')
+    return redirect(url_for('show_all'))
+
+
 if __name__ == '__main__':
     db.create_all()
     app.run(debug = True)
