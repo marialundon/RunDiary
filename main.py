@@ -43,17 +43,32 @@ def new():
 @app.route('/data')
 def data():
     runs = Runs.query.all()
-    for run in runs:
-        return render_template('data.html',data = runs)
+    return render_template('data.html',data = runs)
 
 @app.route('/data/delete', methods=['POST','DELETE','GET'])
-def delete_run():
+def delete_run_via_code():
     run = Runs.query.filter_by(typeofrun = 'Easy run').all()
     for item in run:
         db.session.delete(item)
         db.session.commit()
     flash('Item deleted.')
     return redirect(url_for('show_all'))
+
+@app.route('/data/delete/<id>', methods=['POST','DELETE','GET'])
+def delete_run(id):
+    run = Runs.query.get_or_404(id)
+    db.session.delete(run)
+    db.session.commit()
+    flash('Item deleted.')
+    return redirect(url_for('show_all'))
+
+@app.route('/update', methods=["GET","POST"])
+def update():
+    run = Runs.query.filter_by(time = '40').first()
+    run.time = '50'
+    db.session.commit()
+    flash('Item updated')
+    return redirect("/")
 
 if __name__ == '__main__':
     db.create_all()
