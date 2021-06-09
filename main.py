@@ -62,13 +62,21 @@ def delete_run(id):
     flash('Item deleted.')
     return redirect(url_for('show_all'))
 
-@app.route('/update', methods=["GET","POST"])
-def update():
-    run = Runs.query.filter_by(time = '40').first()
-    run.time = '50'
+@app.route('/data/update', methods=["GET","POST"])
+def update_via_code():
+    run = Runs.query.filter_by(id = '18').first()
+    run.id = '1'
     db.session.commit()
     flash('Item updated')
-    return redirect("/")
+    return redirect(url_for('show_all'))
+
+@app.route('/data/update/<id>', methods=["GET","POST"])
+def update(id):
+    run = Runs.query.get(id)
+    run.id = '3'
+    db.session.commit()
+    flash('Item updated')
+    return redirect(url_for('show_all'))
 
 if __name__ == '__main__':
     db.create_all()
