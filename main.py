@@ -64,19 +64,27 @@ def delete_run(id):
 
 @app.route('/data/update', methods=["GET","POST"])
 def update_via_code():
-    run = Runs.query.filter_by(id = '18').first()
-    run.id = '1'
+    run = Runs.query.filter_by(id = '2').first()
+    run.id = '2'
     db.session.commit()
     flash('Item updated')
     return redirect(url_for('show_all'))
 
 @app.route('/data/update/<id>', methods=["GET","POST"])
 def update(id):
-    run = Runs.query.get(id)
-    run.id = '3'
-    db.session.commit()
-    flash('Item updated')
-    return redirect(url_for('show_all'))
+    run = Runs.query.get_or_404(id)
+    if request.method == 'POST':
+        if run:
+            db.session.delete(run)
+            db.session.commit()
+
+            run = Runs(request.form.get('typeofrun'), request.form.get('length'),request.form.get('location'), request.form.get('time'))
+
+            db.session.add(run)
+            db.session.commit()
+            flash('Record was successfully updated')
+            return redirect(url_for('show_all'))
+    return render_template('new.html')
 
 if __name__ == '__main__':
     db.create_all()
