@@ -55,7 +55,7 @@ def delete_run_via_code():
     return redirect(url_for('show_all'))
 
 @app.route('/data/delete/<id>', methods=['POST','DELETE','GET'])
-def delete_run(id):
+def delete(id):
     run = Runs.query.get_or_404(id)
     db.session.delete(run)
     db.session.commit()

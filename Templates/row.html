@@ -3,5 +3,11 @@
     <td>{{ row[0].typeofrun }}</td>
     <td>{{ row[0].length }}</td>
     <td>{{ row[0].time }}</td>
-    <td>{{ row[0].location }}</td>
+    <td>{{ row[0].location}}</td>
+    <td><a href="{{url_for('update', id = row[0].id )}}">
+            Edit
+        </a></td>
+    <td><a href="{{url_for('delete', id = row[0].id )}}">
+            Delete
+        </a></td>
 </tr>
