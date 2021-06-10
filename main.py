@@ -7,6 +7,7 @@ app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
 app.config['SECRET_KEY'] = "123456789"
 
 db = SQLAlchemy(app)
+
 class Runs(db.Model):
     id = db.Column('run_id', db.Integer, primary_key = True)
     typeofrun = db.Column(db.String(100))
@@ -25,7 +26,7 @@ class Runs(db.Model):
 def show_all():
     return render_template('show_all.html', Runs = Runs.query.all())
 
-@app.route('/new', methods = ['GET', 'POST'])
+@app.route('/runs/new', methods = ['GET', 'POST'])
 def new():
     if request.method == 'POST':
         if not request.form.get('typeofrun','') or not request.form.get('length','') or not request.form.get('location','') or not request.form.get('time',''):
@@ -40,12 +41,12 @@ def new():
     return render_template('new.html')
 
 
-@app.route('/data')
-def data():
+@app.route('/runs/data')
+def rundata():
     runs = Runs.query.all()
     return render_template('data.html',data = runs)
 
-@app.route('/data/delete', methods=['POST','DELETE','GET'])
+@app.route('/runs/delete', methods=['POST','DELETE','GET'])
 def delete_run_via_code():
     run = Runs.query.filter_by(typeofrun = 'Easy run').all()
     for item in run:
@@ -54,7 +55,7 @@ def delete_run_via_code():
     flash('Item deleted.')
     return redirect(url_for('show_all'))
 
-@app.route('/data/delete/<id>', methods=['POST','DELETE','GET'])
+@app.route('/runs/delete/<id>', methods=['POST','DELETE','GET'])
 def delete(id):
     run = Runs.query.get_or_404(id)
     db.session.delete(run)
@@ -62,7 +63,7 @@ def delete(id):
     flash('Item deleted.')
     return redirect(url_for('show_all'))
 
-@app.route('/data/update', methods=["GET","POST"])
+@app.route('/runs/update', methods=["GET","POST"])
 def update_via_code():
     run = Runs.query.filter_by(id = '2').first()
     run.id = '2'
@@ -70,7 +71,7 @@ def update_via_code():
     flash('Item updated')
     return redirect(url_for('show_all'))
 
-@app.route('/data/update/<id>', methods=["GET","POST"])
+@app.route('/runs/update/<id>', methods=["GET","POST"])
 def update(id):
     run = Runs.query.get_or_404(id)
     if request.method == 'POST':
@@ -85,6 +86,33 @@ def update(id):
             flash('Record was successfully updated')
             return redirect(url_for('show_all'))
     return render_template('new.html')
+
+class Runtype(db.Model):
+    id = db.Column('runtype_id', db.Integer, primary_key = True)
+    description = db.Column(db.String(100))
+
+    def __init__(self, description):
+        self.description = description
+
+@app.route('/runtype/data')
+def runtypedata():
+    runtype = Runtype.query.all()
+    return render_template('runtypedata.html',data = runtype)
+
+@app.route('/runtype/new', methods = ['GET', 'POST'])
+def runtypenew():
+    if request.method == 'POST':
+        if not request.form.get('runtype',''):
+            flash('Please enter all the fields', 'error')
+        else:
+            runtype = Runtype(request.form.get('runtype',''))
+            
+            db.session.add(runtype)
+            db.session.commit()
+            flash('Run type was successfully added')
+            return redirect(url_for('show_all'))
+    return render_template('runtypenew.html')
+
 
 if __name__ == '__main__':
     db.create_all()
