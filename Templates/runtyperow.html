@@ -1,6 +1,12 @@
 <tr>
     <td>{{ row[0].id }}</td>
-    <td>{{ row[0].runtype }}</td>
+    <td>{{ row[0].description }}</td>
+    <td><a href="{{url_for('runtypeupdate', id = row[0].id )}}">
+        Edit
+    </a></td>
+<td><a href="{{url_for('runtypedelete', id = row[0].id )}}">
+        Delete
+    </a></td>
 </tr>
 
 

@@ -94,12 +94,16 @@ class Runtype(db.Model):
     def __init__(self, description):
         self.description = description
 
-@app.route('/runtype/data')
+@app.route('/runtype')
+def show_all_runtype():
+    return render_template('runtypeshow_all.html', Runtype = Runtype.query.all())
+
+@app.route('/runtype/runtypedata')
 def runtypedata():
     runtype = Runtype.query.all()
     return render_template('runtypedata.html',data = runtype)
 
-@app.route('/runtype/new', methods = ['GET', 'POST'])
+@app.route('/runtype/runtypenew', methods = ['GET', 'POST'])
 def runtypenew():
     if request.method == 'POST':
         if not request.form.get('runtype',''):
@@ -110,8 +114,33 @@ def runtypenew():
             db.session.add(runtype)
             db.session.commit()
             flash('Run type was successfully added')
-            return redirect(url_for('show_all'))
+            return redirect(url_for('show_all_runtype'))
     return render_template('runtypenew.html')
+
+@app.route('/runtype/runtypedelete/<id>', methods=['POST','DELETE','GET'])
+def runtypedelete(id):
+    runtype = Runtype.query.get_or_404(id)
+    db.session.delete(runtype)
+    db.session.commit()
+    flash('Run type deleted.')
+    return redirect(url_for('show_all_runtype'))
+
+@app.route('/runtype/runtypeupdate/<id>', methods=["GET","POST"])
+def runtypeupdate(id):
+    runtype = Runtype.query.get_or_404(id)
+    if request.method == 'POST':
+        if runtype:
+            db.session.delete(runtype)
+            db.session.commit()
+
+            runtype = Runtype(request.form.get('runtype'))
+
+            db.session.add(runtype)
+            db.session.commit()
+            flash('Record was successfully updated')
+            return redirect(url_for('show_all_runtype'))
+    return render_template('runtypenew.html')
+
 
 
 if __name__ == '__main__':
