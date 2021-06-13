@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+      
+      <h3>
+         <a href = "{{ url_for('show_all_location') }}">Run Locations</a>
+      </h3>
+      
+      <hr/>
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+
+      <h3>Run locations (<a href = "{{ url_for('runlocationdata') }}">See all run locations
+      </a>)</h3>
+		
+      <h3>Record a new location (<a href = "{{ url_for('runlocationnew') }}">Add new run location
+         </a>)</h3>
+      
+   </body>
+</html>

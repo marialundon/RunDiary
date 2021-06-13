@@ -1,6 +1,7 @@
 # pylint: disable=no-member 
 from flask import Flask, render_template, request, flash, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import ForeignKey
 
 app = Flask (__name__)
 app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
@@ -9,6 +10,7 @@ app.config['SECRET_KEY'] = "123456789"
 db = SQLAlchemy(app)
 
 class Runs(db.Model):
+    __tablename__ = 'runs'
     id = db.Column('run_id', db.Integer, primary_key = True)
     typeofrun = db.Column(db.String(100))
     length = db.Column(db.String(50))
@@ -88,6 +90,7 @@ def update(id):
     return render_template('new.html')
 
 class Runtype(db.Model):
+    __tablename__ = 'runtype'
     id = db.Column('runtype_id', db.Integer, primary_key = True)
     description = db.Column(db.String(100))
 
@@ -141,6 +144,60 @@ def runtypeupdate(id):
             return redirect(url_for('show_all_runtype'))
     return render_template('runtypenew.html')
 
+class Runlocation(db.Model):
+    __tablename__ = 'runlocation'
+    id = db.Column('runlocation_id', db.Integer, primary_key = True)
+    description = db.Column(db.String(100))
+
+    def __init__(self, description):
+        self.description = description
+
+@app.route('/runlocation')
+def show_all_location():
+    return render_template('runlocationshow_all.html', Runlocation = Runlocation.query.all())
+
+@app.route('/runlocation/runlocationdata')
+def runlocationdata():
+    runlocation = Runlocation.query.all()
+    return render_template('runlocationdata.html',data = runlocation)
+
+@app.route('/runlocation/runlocationnew', methods = ['GET', 'POST'])
+def runlocationnew():
+    if request.method == 'POST':
+        if not request.form.get('runlocation',''):
+            flash('Please enter all the fields', 'error')
+        else:
+            runlocation = Runlocation(request.form.get('runlocation',''))
+            
+            db.session.add(runlocation)
+            db.session.commit()
+            flash('Run type was successfully added')
+            return redirect(url_for('show_all_location'))
+    return render_template('runlocationnew.html')
+
+@app.route('/runlocation/runlocationdelete/<id>', methods=['POST','DELETE','GET'])
+def runlocationdelete(id):
+    runlocation = Runlocation.query.get_or_404(id)
+    db.session.delete(runlocation)
+    db.session.commit()
+    flash('Run type deleted.')
+    return redirect(url_for('show_all_location'))
+
+@app.route('/runlocation/runlocationupdate/<id>', methods=["GET","POST"])
+def runlocationupdate(id):
+    runlocation = Runlocation.query.get_or_404(id)
+    if request.method == 'POST':
+        if runlocation:
+            db.session.delete(runlocation)
+            db.session.commit()
+
+            runlocation = Runlocation(request.form.get('runlocation'))
+
+            db.session.add(runlocation)
+            db.session.commit()
+            flash('Record was successfully updated')
+            return redirect(url_for('show_all_location'))
+    return render_template('runlocationnew.html')
 
 
 if __name__ == '__main__':
