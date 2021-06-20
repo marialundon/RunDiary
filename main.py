@@ -1,7 +1,12 @@
 # pylint: disable=no-member 
+
 from flask import Flask, render_template, request, flash, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
+
+from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 
 app = Flask (__name__)
 app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
@@ -12,10 +17,11 @@ db = SQLAlchemy(app)
 class Runs(db.Model):
     __tablename__ = 'runs'
     id = db.Column('run_id', db.Integer, primary_key = True)
-    typeofrun = db.Column(db.String(100))
     length = db.Column(db.String(50))
     location = db.Column(db.String(200))
     time = db.Column(db.String(10))
+    typeofrun = db.Column(db.Integer, ForeignKey('runtype.runtype_id'))
+    related_type_of_run = relationship('Runtype', backref='Runs',lazy="joined")
 
     def __init__(self, typeofrun, length, location, time):
         self.typeofrun = typeofrun
@@ -93,6 +99,7 @@ class Runtype(db.Model):
     __tablename__ = 'runtype'
     id = db.Column('runtype_id', db.Integer, primary_key = True)
     description = db.Column(db.String(100))
+    
 
     def __init__(self, description):
         self.description = description
