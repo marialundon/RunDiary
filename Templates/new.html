@@ -13,11 +13,19 @@
       
       <form action = "{{ request.path }}" method = "post">
         <label for = "typeofrun">Type</label><br>
-        <input type = "number" name = "typeofrun" placeholder = "Type of run" /><br>
+        <select name='typeofrun'>
+         {% for type in Runtype %}
+         <option value={{type.id}}>{{type.description}}</option>
+       {% endfor %}
+         </select><br>
         <label for = "length">Length (Kilometers)</label><br>
         <input type = "number" name = "length" placeholder = "Length" /><br>
         <label for = "location">Location</label><br>
-        <input type = "text" name = "location" placeholder = "Location" /><br>
+        <select name='location'>
+         {% for location in Runlocation %}
+         <option value={{location.id}}>{{location.description}}</option>
+       {% endfor %}
+         </select><br>
         <label for = "time">Time (Minutes)</label><br>
         <input type = "number" name = "time" placeholder = "Time" /><br>
         <input type = "submit" value = "Submit" />

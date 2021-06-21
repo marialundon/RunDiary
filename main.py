@@ -47,7 +47,7 @@ def new():
             db.session.commit()
             flash('Record was successfully added')
             return redirect(url_for('show_all'))
-    return render_template('new.html')
+    return render_template('new.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all())
 
 
 @app.route('/runs/data')
@@ -94,7 +94,7 @@ def update(id):
             db.session.commit()
             flash('Record was successfully updated')
             return redirect(url_for('show_all'))
-    return render_template('new.html')
+    return render_template('new.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all())
 
 class Runtype(db.Model):
     __tablename__ = 'runtype'
