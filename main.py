@@ -18,10 +18,11 @@ class Runs(db.Model):
     __tablename__ = 'runs'
     id = db.Column('run_id', db.Integer, primary_key = True)
     length = db.Column(db.String(50))
-    location = db.Column(db.String(200))
+    location = db.Column(db.Integer, ForeignKey('runlocation.runlocation_id'))
     time = db.Column(db.String(10))
     typeofrun = db.Column(db.Integer, ForeignKey('runtype.runtype_id'))
     related_type_of_run = relationship('Runtype', backref='Runs',lazy="joined")
+    related_location_of_run = relationship('Runlocation', backref='Runs',lazy="joined")
 
     def __init__(self, typeofrun, length, location, time):
         self.typeofrun = typeofrun

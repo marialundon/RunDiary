@@ -13,13 +13,13 @@
       
       <form action = "{{ request.path }}" method = "post">
         <label for = "typeofrun">Type</label><br>
-        <input type = "text" name = "typeofrun" placeholder = "Type of run" /><br>
-        <label for = "length">Length</label><br>
-        <input type = "text" name = "length" placeholder = "Length" /><br>
+        <input type = "number" name = "typeofrun" placeholder = "Type of run" /><br>
+        <label for = "length">Length (Kilometers)</label><br>
+        <input type = "number" name = "length" placeholder = "Length" /><br>
         <label for = "location">Location</label><br>
         <input type = "text" name = "location" placeholder = "Location" /><br>
-        <label for = "time">Time</label><br>
-        <input type = "text" name = "time" placeholder = "Time" /><br>
+        <label for = "time">Time (Minutes)</label><br>
+        <input type = "number" name = "time" placeholder = "Time" /><br>
         <input type = "submit" value = "Submit" />
      </form>
    </body>
