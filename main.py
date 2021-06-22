@@ -94,8 +94,7 @@ def update(id):
             db.session.commit()
             flash('Record was successfully updated')
             return redirect(url_for('show_all'))
-    return render_template('new.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all())
-
+    return render_template('update.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all(),runtobeupdated=run)
 class Runtype(db.Model):
     __tablename__ = 'runtype'
     id = db.Column('runtype_id', db.Integer, primary_key = True)

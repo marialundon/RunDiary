@@ -1,7 +1,34 @@
-<form action='' method = "POST">
-    <p>runtype <input type = "text" name = "Type" value="{{run.typeofrun}}"/></p>
-    <p>length <input type = "integer" name = "length"  value="{{run.length}}"/></p>
-    <p>location <input type = "text" name = "location" value="{{run.location}}"/></p>
-    <p>time <input type = "integer" name = "time" value="{{run.time}}"/></p>
-    <p><input type = "submit" value = "Submit" /></p>
-</form>
+<!DOCTYPE html>
+<html>
+   <body>
+   
+      <h3>Runs</h3>
+      <hr/>
+      
+      {%- for category, message in get_flashed_messages(with_categories = true) %}
+         <div class = "alert alert-danger">
+            {{ message }}
+         </div>
+      {%- endfor %}
+      
+      <form action = "{{ request.path }}" method = "post">
+        <label for = "typeofrun">Type</label><br>
+        <select name='typeofrun'>
+         {% for type in Runtype %}
+         <option value={{type.id}}>{{type.description}}</option>
+       {% endfor %}
+         </select><br>
+        <label for = "length">Length (Kilometers)</label><br>
+        <input type = "number" name = "length" value = {{runtobeupdated.length}} /><br>
+        <label for = "location">Location</label><br>
+        <select name='location'>
+         {% for location in Runlocation %}
+         <option value={{location.id}}>{{location.description}}</option>
+       {% endfor %}
+         </select><br>
+        <label for = "time">Time (Minutes)</label><br>
+        <input type = "number" name = "time" value = {{runtobeupdated.time}} /><br>
+        <input type = "submit" value = "Submit" />
+     </form>
+   </body>
+</html>
