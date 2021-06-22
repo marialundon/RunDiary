@@ -1,10 +1,10 @@
 <tr>
     <td>{{ row[0].id }}</td>
     <td>{{ row[0].description }}</td>
-    <td><a href="{{url_for('runlocationupdate', id = row[0].id )}}">
+    <td><a href="{{url_for('location_update', id = row[0].id )}}">
         Edit
     </a></td>
-<td><a href="{{url_for('runlocationdelete', id = row[0].id )}}">
+<td><a href="{{url_for('location_delete', id = row[0].id )}}">
         Delete
     </a></td>
 </tr>

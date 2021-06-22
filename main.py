@@ -2,8 +2,6 @@
 
 from flask import Flask, render_template, request, flash, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey
-
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -32,11 +30,11 @@ class Runs(db.Model):
 
 
 @app.route('/')
-def show_all():
-    return render_template('show_all.html', Runs = Runs.query.all())
+def run_show_all():
+    return render_template('run_show_all.html', Runs = Runs.query.all())
 
 @app.route('/runs/new', methods = ['GET', 'POST'])
-def new():
+def run_new():
     if request.method == 'POST':
         if not request.form.get('typeofrun','') or not request.form.get('length','') or not request.form.get('location','') or not request.form.get('time',''):
             flash('Please enter all the fields', 'error')
@@ -46,42 +44,25 @@ def new():
             db.session.add(run)
             db.session.commit()
             flash('Record was successfully added')
-            return redirect(url_for('show_all'))
-    return render_template('new.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all())
+            return redirect(url_for('run_show_all'))
+    return render_template('run_new.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all())
 
 
 @app.route('/runs/data')
-def rundata():
+def run_data():
     runs = Runs.query.all()
-    return render_template('data.html',data = runs)
-
-@app.route('/runs/delete', methods=['POST','DELETE','GET'])
-def delete_run_via_code():
-    run = Runs.query.filter_by(typeofrun = 'Easy run').all()
-    for item in run:
-        db.session.delete(item)
-        db.session.commit()
-    flash('Item deleted.')
-    return redirect(url_for('show_all'))
+    return render_template('run_data.html',data = runs)
 
 @app.route('/runs/delete/<id>', methods=['POST','DELETE','GET'])
-def delete(id):
+def run_delete(id):
     run = Runs.query.get_or_404(id)
     db.session.delete(run)
     db.session.commit()
     flash('Item deleted.')
-    return redirect(url_for('show_all'))
-
-@app.route('/runs/update', methods=["GET","POST"])
-def update_via_code():
-    run = Runs.query.filter_by(id = '2').first()
-    run.id = '2'
-    db.session.commit()
-    flash('Item updated')
-    return redirect(url_for('show_all'))
+    return redirect(url_for('run_show_all'))
 
 @app.route('/runs/update/<id>', methods=["GET","POST"])
-def update(id):
+def run_update(id):
     run = Runs.query.get_or_404(id)
     if request.method == 'POST':
         if run:
@@ -93,8 +74,9 @@ def update(id):
             db.session.add(run)
             db.session.commit()
             flash('Record was successfully updated')
-            return redirect(url_for('show_all'))
-    return render_template('update.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all(),runtobeupdated=run)
+            return redirect(url_for('run_show_all'))
+    return render_template('run_update.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all(),runtobeupdated=run)
+
 class Runtype(db.Model):
     __tablename__ = 'runtype'
     id = db.Column('runtype_id', db.Integer, primary_key = True)
@@ -104,17 +86,17 @@ class Runtype(db.Model):
     def __init__(self, description):
         self.description = description
 
-@app.route('/runtype')
-def show_all_runtype():
-    return render_template('runtypeshow_all.html', Runtype = Runtype.query.all())
+@app.route('/type')
+def type_show_all():
+    return render_template('type_show_all.html', Runtype = Runtype.query.all())
 
-@app.route('/runtype/runtypedata')
-def runtypedata():
+@app.route('/type/typedata')
+def type_data():
     runtype = Runtype.query.all()
-    return render_template('runtypedata.html',data = runtype)
+    return render_template('type_data.html',data = runtype)
 
-@app.route('/runtype/runtypenew', methods = ['GET', 'POST'])
-def runtypenew():
+@app.route('/type/typenew', methods = ['GET', 'POST'])
+def type_new():
     if request.method == 'POST':
         if not request.form.get('runtype',''):
             flash('Please enter all the fields', 'error')
@@ -124,19 +106,19 @@ def runtypenew():
             db.session.add(runtype)
             db.session.commit()
             flash('Run type was successfully added')
-            return redirect(url_for('show_all_runtype'))
-    return render_template('runtypenew.html')
+            return redirect(url_for('type_show_all'))
+    return render_template('type_new.html')
 
-@app.route('/runtype/runtypedelete/<id>', methods=['POST','DELETE','GET'])
-def runtypedelete(id):
+@app.route('/type/typedelete/<id>', methods=['POST','DELETE','GET'])
+def type_delete(id):
     runtype = Runtype.query.get_or_404(id)
     db.session.delete(runtype)
     db.session.commit()
     flash('Run type deleted.')
-    return redirect(url_for('show_all_runtype'))
+    return redirect(url_for('type_show_all'))
 
-@app.route('/runtype/runtypeupdate/<id>', methods=["GET","POST"])
-def runtypeupdate(id):
+@app.route('/type/typeupdate/<id>', methods=["GET","POST"])
+def type_update(id):
     runtype = Runtype.query.get_or_404(id)
     if request.method == 'POST':
         if runtype:
@@ -148,8 +130,8 @@ def runtypeupdate(id):
             db.session.add(runtype)
             db.session.commit()
             flash('Record was successfully updated')
-            return redirect(url_for('show_all_runtype'))
-    return render_template('runtypenew.html')
+            return redirect(url_for('type_show_all'))
+    return render_template('type_new.html')
 
 class Runlocation(db.Model):
     __tablename__ = 'runlocation'
@@ -159,17 +141,17 @@ class Runlocation(db.Model):
     def __init__(self, description):
         self.description = description
 
-@app.route('/runlocation')
-def show_all_location():
-    return render_template('runlocationshow_all.html', Runlocation = Runlocation.query.all())
+@app.route('/location')
+def location_show_all():
+    return render_template('location_show_all.html', Runlocation = Runlocation.query.all())
 
-@app.route('/runlocation/runlocationdata')
-def runlocationdata():
+@app.route('/location/locationdata')
+def location_data():
     runlocation = Runlocation.query.all()
-    return render_template('runlocationdata.html',data = runlocation)
+    return render_template('location_data.html',data = runlocation)
 
-@app.route('/runlocation/runlocationnew', methods = ['GET', 'POST'])
-def runlocationnew():
+@app.route('/location/locationnew', methods = ['GET', 'POST'])
+def location_new():
     if request.method == 'POST':
         if not request.form.get('runlocation',''):
             flash('Please enter all the fields', 'error')
@@ -179,19 +161,19 @@ def runlocationnew():
             db.session.add(runlocation)
             db.session.commit()
             flash('Run type was successfully added')
-            return redirect(url_for('show_all_location'))
-    return render_template('runlocationnew.html')
+            return redirect(url_for('location_show_all'))
+    return render_template('location_new.html')
 
-@app.route('/runlocation/runlocationdelete/<id>', methods=['POST','DELETE','GET'])
-def runlocationdelete(id):
+@app.route('/location/locationdelete/<id>', methods=['POST','DELETE','GET'])
+def location_delete(id):
     runlocation = Runlocation.query.get_or_404(id)
     db.session.delete(runlocation)
     db.session.commit()
     flash('Run type deleted.')
-    return redirect(url_for('show_all_location'))
+    return redirect(url_for('location_show_all'))
 
-@app.route('/runlocation/runlocationupdate/<id>', methods=["GET","POST"])
-def runlocationupdate(id):
+@app.route('/location/locationupdate/<id>', methods=["GET","POST"])
+def location_update(id):
     runlocation = Runlocation.query.get_or_404(id)
     if request.method == 'POST':
         if runlocation:
@@ -203,8 +185,8 @@ def runlocationupdate(id):
             db.session.add(runlocation)
             db.session.commit()
             flash('Record was successfully updated')
-            return redirect(url_for('show_all_location'))
-    return render_template('runlocationnew.html')
+            return redirect(url_for('location_show_all'))
+    return render_template('location_new.html')
 
 
 if __name__ == '__main__':

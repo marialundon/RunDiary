@@ -20,11 +20,14 @@
         <tr>
             <td>ID</td>
             <td>Type</td>
+            <td>Length</td>
+            <td>Time</td>
+            <td>Location </td>
         </tr>
     </thead>
     <tbody>
             {% for row in data| batch(1) %}
-                {% include "runtyperow.html" %}
+                {% include "run_row.html" %}
             {% endfor %}
 
     </tbody>
