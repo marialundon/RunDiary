@@ -14,6 +14,7 @@
       <form action = "{{ request.path }}" method = "post">
         <label for = "typeofrun">Type</label><br>
         <select name='typeofrun'>
+        <option value={{runtobeupdated.typeofrun}}>{{runtobeupdated.typeofrun}}</option>
          {% for type in Runtype %}
          <option value={{type.id}}>{{type.description}}</option>
        {% endfor %}
@@ -22,6 +23,7 @@
         <input type = "number" name = "length" value = {{runtobeupdated.length}} /><br>
         <label for = "location">Location</label><br>
         <select name='location'>
+        <option value={{runtobeupdated.location}}>{{runtobeupdated.location}}</option>
          {% for location in Runlocation %}
          <option value={{location.id}}>{{location.description}}</option>
        {% endfor %}
