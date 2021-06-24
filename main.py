@@ -66,12 +66,12 @@ def run_update(id):
     run = Runs.query.get_or_404(id)
     if request.method == 'POST':
         if run:
-            db.session.delete(run)
-            db.session.commit()
 
-            run = Runs(request.form.get('typeofrun'), request.form.get('length'),request.form.get('location'), request.form.get('time'))
+            run.typeofrun = request.form.get('typeofrun')
+            run.length = request.form.get('length')
+            run.location = request.form.get('location')
+            run.time = request.form.get('time')
 
-            db.session.add(run)
             db.session.commit()
             flash('Record was successfully updated')
             return redirect(url_for('run_show_all'))
@@ -122,12 +122,9 @@ def type_update(id):
     runtype = Runtype.query.get_or_404(id)
     if request.method == 'POST':
         if runtype:
-            db.session.delete(runtype)
-            db.session.commit()
 
-            runtype = Runtype(request.form.get('runtype'))
+            runtype.description = request.form.get('runtype')
 
-            db.session.add(runtype)
             db.session.commit()
             flash('Record was successfully updated')
             return redirect(url_for('type_show_all'))
@@ -157,7 +154,6 @@ def location_new():
             flash('Please enter all the fields', 'error')
         else:
             runlocation = Runlocation(request.form.get('runlocation',''))
-            
             db.session.add(runlocation)
             db.session.commit()
             flash('Run type was successfully added')
@@ -177,12 +173,7 @@ def location_update(id):
     runlocation = Runlocation.query.get_or_404(id)
     if request.method == 'POST':
         if runlocation:
-            db.session.delete(runlocation)
-            db.session.commit()
-
-            runlocation = Runlocation(request.form.get('runlocation'))
-
-            db.session.add(runlocation)
+            runlocation.description = request.form.get('runlocation')
             db.session.commit()
             flash('Record was successfully updated')
             return redirect(url_for('location_show_all'))
