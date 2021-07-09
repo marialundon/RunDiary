@@ -1,37 +1,20 @@
 # pylint: disable=no-member 
 
+from Controllers.RunController import show_run
+from Model.Run import Runs
 from flask import Flask, render_template, request, flash, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from Model import db
 
 app = Flask (__name__)
 app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
 app.config['SECRET_KEY'] = "123456789"
+db.init_app(app)
 
-db = SQLAlchemy(app)
-
-class Runs(db.Model):
-    __tablename__ = 'runs'
-    id = db.Column('run_id', db.Integer, primary_key = True)
-    length = db.Column(db.String(50))
-    location = db.Column(db.Integer, ForeignKey('runlocation.runlocation_id'))
-    time = db.Column(db.String(10))
-    typeofrun = db.Column(db.Integer, ForeignKey('runtype.runtype_id'))
-    related_type_of_run = relationship('Runtype', backref='Runs',lazy="joined")
-    related_location_of_run = relationship('Runlocation', backref='Runs',lazy="joined")
-
-    def __init__(self, typeofrun, length, location, time):
-        self.typeofrun = typeofrun
-        self.length = length
-        self.location = location
-        self.time = time
-
-
-@app.route('/')
-def run_show_all():
-    return render_template('run_show_all.html', Runs = Runs.query.all())
+app.register_blueprint(show_run)
 
 @app.route('/runs/new', methods = ['GET', 'POST'])
 def run_new():
@@ -181,5 +164,6 @@ def location_update(id):
 
 
 if __name__ == '__main__':
-    db.create_all()
+    with app.app_context():
+        db.create_all()
     app.run(debug = True)
