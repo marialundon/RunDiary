@@ -5,13 +5,13 @@ from Model.Runlocation import Runlocation
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
 
-show_type = Blueprint('show_type', __name__)
+options_type = Blueprint('options_type', __name__)
 new_type = Blueprint('new_type',__name__)
 data_type = Blueprint('data_type',__name__)
 delete_type = Blueprint('delete_type',__name__)
 update_type = Blueprint('update_type',__name__)
 
-@show_type.route('/type')
+@options_type.route('/type')
 def type_show_all():
     return render_template('type_show_all.html', Runtype = Runtype.query.all())
 
@@ -40,7 +40,7 @@ def type_delete(id):
     db.session.delete(runtype)
     db.session.commit()
     flash('Run type deleted.')
-    return redirect(url_for('show_type.type_show_all'))
+    return redirect(url_for('options_type.type_show_all'))
 
 @update_type.route('/type/typeupdate/<id>', methods=["GET","POST"])
 def type_update(id):
@@ -52,6 +52,6 @@ def type_update(id):
 
             db.session.commit()
             flash('Record was successfully updated')
-            return redirect(url_for('show_type.type_show_all'))
+            return redirect(url_for('options_type.type_show_all'))
     return render_template('type_new.html')
 

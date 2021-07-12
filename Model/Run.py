@@ -1,9 +1,8 @@
 from flask.app import Flask
 from Model import db
 
-from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 
 
 app = Flask('__main__')

@@ -5,13 +5,13 @@ from Model.Runlocation import Runlocation
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
 
-show_location = Blueprint('show_location', __name__)
+options_location = Blueprint('options_location', __name__)
 new_location = Blueprint('new_location',__name__)
 data_location = Blueprint('data_location',__name__)
 delete_location = Blueprint('delete_location',__name__)
 update_location = Blueprint('update_location',__name__)
 
-@show_location.route('/location')
+@options_location.route('/location')
 def location_show_all():
     return render_template('location_show_all.html', Runlocation = Runlocation.query.all())
 
@@ -30,7 +30,7 @@ def location_new():
             db.session.add(runlocation)
             db.session.commit()
             flash('Run type was successfully added')
-            return redirect(url_for('show_location.location_show_all'))
+            return redirect(url_for('options_location.location_show_all'))
     return render_template('location_new.html')
 
 @delete_location.route('/location/locationdelete/<id>', methods=['POST','DELETE','GET'])
@@ -39,7 +39,7 @@ def location_delete(id):
     db.session.delete(runlocation)
     db.session.commit()
     flash('Run type deleted.')
-    return redirect(url_for('show_location.location_show_all'))
+    return redirect(url_for('options_location.location_show_all'))
 
 @update_location.route('/location/locationupdate/<id>', methods=["GET","POST"])
 def location_update(id):
@@ -49,5 +49,5 @@ def location_update(id):
             runlocation.description = request.form.get('runlocation')
             db.session.commit()
             flash('Record was successfully updated')
-            return redirect(url_for('show_location.location_show_all'))
+            return redirect(url_for('options_location.location_show_all'))
     return render_template('location_new.html')

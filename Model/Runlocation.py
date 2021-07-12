@@ -1,10 +1,6 @@
 from flask.app import Flask
 from Model import db
 
-from sqlalchemy import Table, Column, Integer, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-
 
 app = Flask('__main__')
 app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
