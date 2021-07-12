@@ -4,7 +4,7 @@
    <body>
       
       <h3>
-         <a href = "{{ url_for('type_show_all') }}">Run Types</a>
+         <a href = "{{ url_for('show_type.type_show_all') }}">Run Types</a>
       </h3>
       
       <hr/>
@@ -12,10 +12,10 @@
          {{ message }}
       {%- endfor %}
 
-      <h3>Run types (<a href = "{{ url_for('type_data') }}">See all run types
+      <h3>Run types (<a href = "{{ url_for('data_type.type_data') }}">See all run types
       </a>)</h3>
 		
-      <h3>Record a new type (<a href = "{{ url_for('type_new') }}">Add new run type
+      <h3>Record a new type (<a href = "{{ url_for('new_type.type_new') }}">Add new run type
          </a>)</h3>
       
    </body>

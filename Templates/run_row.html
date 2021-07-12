@@ -4,10 +4,10 @@
     <td>{{ row[0].length }}</td>
     <td>{{ row[0].time }}</td>
     <td>{{ row[0].related_location_of_run.description}}</td>
-    <td><a href="{{url_for('run_update', id = row[0].id )}}">
+    <td><a href="{{url_for('update_run.run_update', id = row[0].id )}}">
             Edit
         </a></td>
-    <td><a href="{{url_for('run_delete', id = row[0].id )}}">
+    <td><a href="{{url_for('delete_run.run_delete', id = row[0].id )}}">
             Delete
         </a></td>
 </tr>

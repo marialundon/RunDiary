@@ -12,10 +12,10 @@
          {{ message }}
       {%- endfor %}
 
-      <h3>Running history (<a href = "{{ url_for('run_data') }}">See all runs
+      <h3>Running history (<a href = "{{ url_for('data_run.run_data') }}">See all runs
       </a>)</h3>
 		
-      <h3>Record a new run (<a href = "{{ url_for('run_new') }}">Add new run
+      <h3>Record a new run (<a href = "{{ url_for('new_run.run_new') }}">Add new run
          </a>)</h3>
       
    </body>
