@@ -12,8 +12,8 @@ delete_type = Blueprint('delete_type',__name__)
 update_type = Blueprint('update_type',__name__)
 
 @options_type.route('/type')
-def type_show_all():
-    return render_template('type_show_all.html', Runtype = Runtype.query.all())
+def type_options():
+    return render_template('type_options.html', Runtype = Runtype.query.all())
 
 @data_type.route('/type/typedata')
 def type_data():
@@ -31,7 +31,7 @@ def type_new():
             db.session.add(runtype)
             db.session.commit()
             flash('Run type was successfully added')
-            return redirect(url_for('show_type.type_show_all'))
+            return redirect(url_for('options_type.type_options'))
     return render_template('type_new.html')
 
 @delete_type.route('/type/typedelete/<id>', methods=['POST','DELETE','GET'])
@@ -40,7 +40,7 @@ def type_delete(id):
     db.session.delete(runtype)
     db.session.commit()
     flash('Run type deleted.')
-    return redirect(url_for('options_type.type_show_all'))
+    return redirect(url_for('options_type.type_options'))
 
 @update_type.route('/type/typeupdate/<id>', methods=["GET","POST"])
 def type_update(id):
@@ -52,6 +52,6 @@ def type_update(id):
 
             db.session.commit()
             flash('Record was successfully updated')
-            return redirect(url_for('options_type.type_show_all'))
+            return redirect(url_for('options_type.type_options'))
     return render_template('type_new.html')
 

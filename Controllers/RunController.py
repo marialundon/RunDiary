@@ -12,8 +12,8 @@ delete_run = Blueprint('delete_run',__name__)
 update_run = Blueprint('update_run',__name__)
 
 @options_run.route("/")
-def run_show_all():
-    return render_template('run_show_all.html', Runs = Runs.query.all())
+def run_options():
+    return render_template('run_options.html', Runs = Runs.query.all())
 
 @new_run.route("/runs/new", methods=["GET","POST"])
 def run_new():
@@ -27,7 +27,7 @@ def run_new():
             db.session.commit()
             print('Hello')
             flash('Record was successfully added')
-            return redirect(url_for('show_run.run_show_all'))
+            return redirect(url_for('options_run.run_options'))
     return render_template('run_new.html', Runtype = Runtype.query.all(),Runlocation = Runlocation.query.all())
     
 @data_run.route('/runs/data')
@@ -41,7 +41,7 @@ def run_delete(id):
     db.session.delete(run)
     db.session.commit()
     flash('Item deleted.')
-    return redirect(url_for('show_run.run_show_all'))
+    return redirect(url_for('options_run.run_options'))
 
 @update_run.route('/runs/update/<id>', methods=["GET","POST"])
 def run_update(id):
@@ -56,6 +56,6 @@ def run_update(id):
 
             db.session.commit()
             flash('Record was successfully updated')
-            return redirect(url_for('show_run.run_show_all'))
+            return redirect(url_for('options_run.run_options'))
     return render_template('run_update.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all(),runtobeupdated=run)
 
