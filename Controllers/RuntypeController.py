@@ -1,5 +1,5 @@
 # pylint: disable=no-member
-from Model.Run import Runs
+from Model.Run import Run
 from Model.Runtype import Runtype
 from Model.Runlocation import Runlocation
 from flask import Blueprint, request, render_template, flash, url_for, redirect

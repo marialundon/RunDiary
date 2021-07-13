@@ -1,5 +1,5 @@
 # pylint: disable=no-member
-from Model.Run import Runs
+from Model.Run import Run
 from Model.Runtype import Runtype
 from Model.Runlocation import Runlocation
 from flask import Blueprint, request, render_template, flash, url_for, redirect
@@ -13,7 +13,7 @@ update_run = Blueprint('update_run',__name__)
 
 @options_run.route("/")
 def run_options():
-    return render_template('run_options.html', Runs = Runs.query.all())
+    return render_template('run_options.html', Runs = Run.query.all())
 
 @new_run.route("/runs/new", methods=["GET","POST"])
 def run_new():
@@ -21,7 +21,7 @@ def run_new():
         if not request.form.get('typeofrun','') or not request.form.get('length','') or not request.form.get('location','') or not request.form.get('time',''):
             flash('Please enter all the fields', 'error')
         else:
-            run = Runs(request.form.get('typeofrun',''), request.form.get('length',''),request.form.get('location',''), request.form.get('time',''))
+            run = Run(request.form.get('typeofrun',''), request.form.get('length',''),request.form.get('location',''), request.form.get('time',''))
             
             db.session.add(run)
             db.session.commit()
@@ -32,12 +32,12 @@ def run_new():
     
 @data_run.route('/runs/data')
 def run_data():
-    runs = Runs.query.all()
+    runs = Run.query.all()
     return render_template('run_data.html',data = runs)
 
 @delete_run.route('/runs/delete/<id>', methods=['POST','DELETE','GET'])
 def run_delete(id):
-    run = Runs.query.get_or_404(id)
+    run = Run.query.get_or_404(id)
     db.session.delete(run)
     db.session.commit()
     flash('Item deleted.')
@@ -45,7 +45,7 @@ def run_delete(id):
 
 @update_run.route('/runs/update/<id>', methods=["GET","POST"])
 def run_update(id):
-    run = Runs.query.get_or_404(id)
+    run = Run.query.get_or_404(id)
     if request.method == 'POST':
         if run:
 
