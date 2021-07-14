@@ -16,19 +16,17 @@
          {{ message }}
       {%- endfor %}
 
-<div class="card text-white bg-warning mb-3">
-<div class="card-body">
+<div class="row">      
+
+<div class="col-sm-4" style="background-color:lavender;">
    <h3><a href = "{{ url_for('data_run.run_data') }}"> Running history
       </a></h3>
    </div>
-</div>
 		
-<div class="card text-white bg-success mb-3">
-<div class="card-body">
+<div class="col-sm-4" style="background-color:rgb(230, 250, 232);">
       <h3><a href = "{{ url_for('new_run.run_new') }}"> Record a new run
          </a></h3>
       </div>
-   </div>
-      
+</div>
    
 </html>
