@@ -2,7 +2,7 @@
 <html>
    <body>
    
-      <h3>Run Location</h3>
+      <h3></h3>
       <hr/>
       
       {%- for category, message in get_flashed_messages(with_categories = true) %}
@@ -12,9 +12,9 @@
       {%- endfor %}
       
       <form action = "{{ request.path }}" method = "post">
-        <label for = "runlocation">Location</label><br>
-        <input type = "text" name = "runlocation" placeholder = "Location of run" /><br>
-        <input type = "submit" value = "Submit" /><br>
+        <label for = "runlocation">Location</label><p>
+        <input type = "text" name = "runlocation" placeholder = "Location of run" /><p>
+        <input type = "submit" value = "Submit" /><p>
     </form>
 
    </body>

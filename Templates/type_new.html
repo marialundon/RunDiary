@@ -2,7 +2,6 @@
 <html>
    <body>
    
-      <h3>Runtype</h3>
       <hr/>
       
       {%- for category, message in get_flashed_messages(with_categories = true) %}
@@ -12,9 +11,10 @@
       {%- endfor %}
       
       <form action = "{{ request.path }}" method = "post">
-        <label for = "runtype">Type</label><br>
-        <input type = "text" name = "runtype" placeholder = "Type of run" /><br>
-        <input type = "submit" value = "Submit" /><br>
+        <label for = "runtype">Type</label><p>
+        <input type = "text" name = "runtype" placeholder = "Type of run" />
+
+        <p><input type = "submit" value = "Submit" /></p>
     </form>
 
    </body>
