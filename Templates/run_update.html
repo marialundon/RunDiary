@@ -19,8 +19,12 @@
          <option value={{type.id}}>{{type.description}}</option>
        {% endfor %}
          </select><br>
+         <label for = "date">Date</label><br>
+         <input type = "date" name = "date" placeholder = "Date" /><br>
         <label for = "length">Length (Kilometers)</label><br>
         <input type = "number" name = "length" value = {{runtobeupdated.length}} /><br>
+        <label for = "time">Time (Minutes)</label><br>
+        <input type = "number" name = "time" value = {{runtobeupdated.time}} /><br>
         <label for = "location">Location</label><br>
         <select name='location'>
         <option value={{runtobeupdated.location}}>{{runtobeupdated.location}}</option>
@@ -28,8 +32,6 @@
          <option value={{location.id}}>{{location.description}}</option>
        {% endfor %}
          </select><br>
-        <label for = "time">Time (Minutes)</label><br>
-        <input type = "number" name = "time" value = {{runtobeupdated.time}} /><br>
         <input type = "submit" value = "Submit" />
      </form>
    </body>

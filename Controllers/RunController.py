@@ -18,10 +18,10 @@ def run_options():
 @new_run.route("/runs/new", methods=["GET","POST"])
 def run_new():
     if request.method == 'POST':
-        if not request.form.get('typeofrun','') or not request.form.get('length','') or not request.form.get('location','') or not request.form.get('time',''):
+        if not request.form.get('typeofrun','') or not request.form.get('date','') or not request.form.get('length','') or not request.form.get('time','') or not request.form.get('location',''):
             flash('Please enter all the fields', 'error')
         else:
-            run = Run(request.form.get('typeofrun',''), request.form.get('length',''),request.form.get('location',''), request.form.get('time',''))
+            run = Run(request.form.get('typeofrun'),request.form.get('date'),request.form.get('length'),request.form.get('time'), request.form.get('location'))
             
             db.session.add(run)
             db.session.commit()
@@ -50,9 +50,10 @@ def run_update(id):
         if run:
 
             run.typeofrun = request.form.get('typeofrun')
+            run.date= request.form.get('date')
             run.length = request.form.get('length')
-            run.location = request.form.get('location')
             run.time = request.form.get('time')
+            run.location = request.form.get('location')
 
             db.session.commit()
             flash('Record was successfully updated')

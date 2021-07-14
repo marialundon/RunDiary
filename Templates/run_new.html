@@ -18,16 +18,19 @@
          <option value={{type.id}}>{{type.description}}</option>
        {% endfor %}
          </select><br>
+      <label for = "date">Date</label><br>
+         <input type = "date" name = "date" placeholder = "Date" /><br>
         <label for = "length">Length (Kilometers)</label><br>
         <input type = "number" name = "length" placeholder = "Length" /><br>
+        <label for = "time">Time (Minutes)</label><br>
+        <input type = "number" name = "time" placeholder = "Time" /><br>
         <label for = "location">Location</label><br>
         <select name='location'>
          {% for location in Runlocation %}
          <option value={{location.id}}>{{location.description}}</option>
        {% endfor %}
          </select><br>
-        <label for = "time">Time (Minutes)</label><br>
-        <input type = "number" name = "time" placeholder = "Time" /><br>
+
         <input type = "submit" value = "Submit" />
      </form>
    </body>

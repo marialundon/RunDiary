@@ -17,12 +17,15 @@ class Run(db.Model):
     length = db.Column(db.String(50))
     location = db.Column(db.Integer, ForeignKey('runlocation.runlocation_id'))
     time = db.Column(db.String(10))
+    date = db.Column(db.String(10))
     typeofrun = db.Column(db.Integer, ForeignKey('runtype.runtype_id'))
     related_type_of_run = relationship('Runtype', backref='Run',lazy="joined")
     related_location_of_run = relationship('Runlocation', backref='Run',lazy="joined")
 
-    def __init__(self, typeofrun, length, location, time):
+    def __init__(self, typeofrun, date, length, time, location ):
         self.typeofrun = typeofrun
+        self.date = date
         self.length = length
-        self.location = location
         self.time = time
+        self.location = location
+       
