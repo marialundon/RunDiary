@@ -18,15 +18,37 @@
 
 <div class="row">      
 
-<div class="col-sm-4" style="background-color:lavender;">
+<div class="col-sm-3" style="background-color:lavender;">
    <h3><a href = "{{ url_for('data_run.run_data') }}"> Running history
       </a></h3>
    </div>
 		
-<div class="col-sm-4" style="background-color:rgb(230, 250, 232);">
+<div class="col-sm-3" style="background-color:rgb(230, 250, 232);">
       <h3><a href = "{{ url_for('new_run.run_new') }}"> Record a new run
          </a></h3>
       </div>
+
+<div class="col-sm-6" style="background-color:rgb(250, 241, 230);">
+   <h3>Recent Activity</h3>
+         <table class="table table-hover">
+         <thead>
+             <tr>
+                 <td>ID</td>
+                 <td>Type</td>
+                 <td>Date</td>
+                 <td>Length (KM)</td>
+                 <td>Time (Mins)</td>
+                 <td>Location </td>
+             </tr>
+         </thead>
+         <tbody>
+         {% for row in recent| batch(1) %}
+            {% include "run_row.html" %}
+        {% endfor %}
+         </tbody>
+         </table>
+</div>
+
 </div>
    
 </html>

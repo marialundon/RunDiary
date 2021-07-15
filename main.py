@@ -1,6 +1,6 @@
 # pylint: disable=no-member 
 
-from Controllers.RunController import options_run,new_run, data_run, update_run, delete_run
+from Controllers.RunController import options_run,new_run, data_run, update_run, delete_run,recent_run
 from Controllers.RuntypeController import options_type,new_type, data_type, update_type, delete_type
 from Controllers.RunlocationController import options_location,new_location, data_location, update_location, delete_location
 from flask import Flask
@@ -16,6 +16,8 @@ app.register_blueprint(options_run)
 app.register_blueprint(new_run)
 
 app.register_blueprint(data_run)
+
+app.register_blueprint(recent_run)
 
 app.register_blueprint(update_run)
 
