@@ -33,7 +33,6 @@
          <table class="table table-hover">
          <thead>
              <tr>
-                 <td>ID</td>
                  <td>Type</td>
                  <td>Date</td>
                  <td>Length (KM)</td>
@@ -43,7 +42,7 @@
          </thead>
          <tbody>
          {% for row in recent| batch(1) %}
-            {% include "run_row.html" %}
+            {% include "run_recent.html" %}
         {% endfor %}
          </tbody>
          </table>

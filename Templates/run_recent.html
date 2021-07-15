@@ -1,39 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style type="text/css" media="screen">
+<tr>
+    <td>{{ row[0].related_type_of_run.description}}</td>
+    <td>{{ row[0].date }}</td>
+    <td>{{ row[0].length }}</td>
+    <td>{{ row[0].time }}</td>
+    <td>{{ row[0].related_location_of_run.description}}</td>
+</tr>
 
-    table{
-    border-collapse:collapse;
-    border:1px solid #FF0000;
-    }
-    
-    table td{
-    border:1px solid #FF0000;
-    }
-    </style>
-</head>
-<body>
-<div class="container">
-    <table class="table table-hover">
-    <thead>
-        <tr>
-            <td>ID</td>
-            <td>Type</td>
-            <td>Date of run</td>
-            <td>Length (Kilometres)</td>
-            <td>Time (Minutes)</td>
-            <td>Location </td>
-        </tr>
-    </thead>
-    <tbody>
-            {% for row in recent| batch(1) %}
-                {% include "run_row.html" %}
-            {% endfor %}
-
-    </tbody>
-    </table>
-
-</div>
-</body>
-</html>

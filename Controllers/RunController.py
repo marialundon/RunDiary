@@ -4,6 +4,7 @@ from Model.Runtype import Runtype
 from Model.Runlocation import Runlocation
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
+from sqlalchemy import desc
 
 options_run = Blueprint('options_run', __name__)
 new_run = Blueprint('new_run',__name__)
@@ -14,7 +15,7 @@ update_run = Blueprint('update_run',__name__)
 
 @options_run.route("/")
 def run_options():
-    runs = Run.query.limit(1)
+    runs = Run.query.order_by(desc(Run.date)).limit(1)
     return render_template('run_options.html',recent = runs)
 
 @new_run.route("/runs/new", methods=["GET","POST"])
@@ -36,11 +37,6 @@ def run_new():
 def run_data():
     runs = Run.query.all()
     return render_template('run_data.html',data = runs)
-
-@data_run.route('/runs/recent')
-def run_recent():
-    runs = Run.query.limit(1)
-    return render_template('run_recent.html',recent = runs)
 
 @delete_run.route('/runs/delete/<id>', methods=['POST','DELETE','GET'])
 def run_delete(id):
