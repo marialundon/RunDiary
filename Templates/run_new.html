@@ -29,6 +29,12 @@
          {% for location in Runlocation %}
          <option value={{location.id}}>{{location.description}}</option>
        {% endfor %}
+         </select>
+         <label for = "shoe">Location</label><br>
+        <select name='shoe'>
+         {% for shoe in Shoe
+         <option value={{shoe.id}}>{{shoe.description}}</option>
+       {% endfor %}
          </select><br>
         <p><input type = "submit" value = "Submit" /></p>
      </form>

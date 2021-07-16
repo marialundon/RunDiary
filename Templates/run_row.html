@@ -5,6 +5,7 @@
     <td>{{ row[0].length }}</td>
     <td>{{ row[0].time }}</td>
     <td>{{ row[0].related_location_of_run.description}}</td>
+    <td>{{ row[0].related_shoe_of_run.description}}</td>
     <td><a href="{{url_for('update_run.run_update', id = row[0].id )}}">
             Edit
         </a></td>
