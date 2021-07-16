@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css" media="screen">
+
+    table{
+    border-collapse:collapse;
+    border:1px solid #FF0000;
+    }
+    
+    table td{
+    border:1px solid #FF0000;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Shoe</td>
+        </tr>
+    </thead>
+    <tbody>
+            {% for row in data| batch(1) %}
+                {% include "shoe_row.html" %}
+            {% endfor %}
+
+    </tbody>
+    </table>
+
+</div>
+</body>
+</html>

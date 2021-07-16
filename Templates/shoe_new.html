@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+   <body>
+   
+      <hr/>
+      
+      {%- for category, message in get_flashed_messages(with_categories = true) %}
+         <div class = "alert alert-danger">
+            {{ message }}
+         </div>
+      {%- endfor %}
+      
+      <form action = "{{ request.path }}" method = "post">
+        <label for = "shoe">Type</label><p>
+        <input type = "text" name = "shoe" placeholder = "Type of shoe" />
+
+        <p><input type = "submit" value = "Submit" /></p>
+    </form>
+
+   </body>
+</html>

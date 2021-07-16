@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+      
+      <h3>
+         <a href = "{{ url_for('options_shoe.shoe_options') }}"></a>
+      </h3>
+      
+      <hr/>
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+
+      <h3>Shoe types (<a href = "{{ url_for('data_shoe.shoe_data') }}">See all shoes
+      </a>)</h3>
+		
+      <h3>Record a shoe (<a href = "{{ url_for('new_shoe.shoe_new') }}">Add new shoe
+         </a>)</h3>
+      
+   </body>
+</html>
