@@ -45,7 +45,7 @@ def run_delete(id):
     db.session.delete(run)
     db.session.commit()
     flash('Item deleted.')
-    return redirect(url_for('data_run.run_data'))
+    return redirect(url_for('options_run.run_options'))
 
 @update_run.route('/runs/update/<id>', methods=["GET","POST"])
 def run_update(id):

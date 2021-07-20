@@ -9,47 +9,47 @@
    <body>
    
 
-   <div class="col">
+   <div class="col-sm-2">
       <form action = "{{ request.path }}" method = "post">
         <label for = "typeofrun">Type</label><br>
-        <select name='typeofrun' class="form-control">
+        <select name='typeofrun' class="form-select"><option selected disabled value="">Choose type...</option>
          {% for type in Runtype %}
          <option value={{type.id}}>{{type.description}}</option>
        {% endfor %}
-         </select>
+         </select><br>
    </div>
-   <div class="col">
+   <div class="col-sm-2">
       <label for = "date">Date</label><br>
       <input type = "date" class="form-control" name = "date" placeholder = "Date" /><br>
    </div>
    
    
-   <div class="col">
+   <div class="col-sm-2">
       <label for = "length">Length (Kilometers)</label><br>
-      <input type = "number" class="form-control" name = "length" placeholder = "Length" /><br>
+      <input type = "number" class="form-control" name = "length" placeholder = "Enter length..." /><br>
    </div>
-   <div class="col">
+   <div class="col-sm-2">
         <label for = "time">Time (Minutes)</label><br>
-        <input type = "number" class="form-control" name = "time" placeholder = "Time" /><br>
+        <input type = "number" class="form-control" name = "time" placeholder = "Enter time..." /><br>
    </div>
    
-   <div class="col">
+   <div class="col-sm-2">
         <label for = "location" >Location</label><br>
-        <select name='location' class="form-control">
+        <select name='location' class="form-select"><option selected disabled value="">Choose location...</option>
          {% for location in Runlocation %}
          <option value={{location.id}}>{{location.description}}</option>
        {% endfor %}
          </select><br>
    </div>
-   <div class="col">
+   <div class="col-sm-2">
          <label for = "shoe">Shoe</label><br>
-         <select name='shoe' class="form-control">
+         <select name='shoe' class="form-select"><option selected disabled value="">Choose shoe...</option>
           {% for shoe in Shoe %}
           <option value={{shoe.id}}>{{shoe.description}}</option>
         {% endfor %}
           </select><br>
    </div>
-         <input type = "submit" value = "Submit" />
+         <input type = "submit" class="btn btn-primary"  value = "Submit" />
      </form>
    </body>
 </html>
