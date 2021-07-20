@@ -34,15 +34,15 @@
          <table class="table table-hover">
          <thead>
              <tr>
-                 <td>Type</td>
-                 <td>Date</td>
-                 <td>Length (km)</td>
-                 <td>Time (mins)</td>
-                 <td>Location </td>
-                 <td>Shoe </td>
+                 <th>Type</th>
+                 <th>Date</th>
+                 <th>Length (km)</th>
+                 <th>Time (mins)</th>
+                 <th>Location </th>
+                 <th>Shoe </th>
              </tr>
          </thead>
-         <tbody>
+         <tbody class="text-center">
          {% for row in recent| batch(1) %}
             {% include "run_recent.html" %}
         {% endfor %}
