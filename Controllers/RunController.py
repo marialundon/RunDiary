@@ -29,9 +29,7 @@ def run_new():
             
             db.session.add(run)
             db.session.commit()
-            print('Hello')
-            flash('Record was successfully added')
-            return redirect(url_for('options_run.run_options'))
+            return redirect(url_for('data_run.run_data'))
     return render_template('run_new.html', Runtype = Runtype.query.all(),Runlocation = Runlocation.query.all(),Shoe = Shoe.query.all())
     
 @data_run.route('/runs/data')
@@ -44,8 +42,7 @@ def run_delete(id):
     run = Run.query.get_or_404(id)
     db.session.delete(run)
     db.session.commit()
-    flash('Item deleted.')
-    return redirect(url_for('options_run.run_options'))
+    return redirect(url_for('data_run.run_data'))
 
 @update_run.route('/runs/update/<id>', methods=["GET","POST"])
 def run_update(id):
@@ -61,7 +58,6 @@ def run_update(id):
             run.shoe = request.form.get('shoe')
 
             db.session.commit()
-            flash('Record was successfully updated')
-            return redirect(url_for('options_run.run_options'))
+            return redirect(url_for('data_run.run_data'))
     return render_template('run_update.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all(),runtobeupdated=run,Shoe = Shoe.query.all())
 
