@@ -31,8 +31,7 @@ def shoe_new():
             
             db.session.add(shoe)
             db.session.commit()
-            flash('Shoe was successfully added')
-            return redirect(url_for('options_shoe.shoe_options'))
+            return redirect(url_for('data_shoe.shoe_data'))
     return render_template('shoe_new.html')
 
 @delete_shoe.route('/shoe/shoedelete/<id>', methods=['POST','DELETE','GET'])
@@ -40,8 +39,7 @@ def shoe_delete(id):
     shoe = Shoe.query.get_or_404(id)
     db.session.delete(shoe)
     db.session.commit()
-    flash('Shoe deleted.')
-    return redirect(url_for('options_shoe.shoe_options'))
+    return redirect(url_for('data_shoe.shoe_data'))
 
 @update_shoe.route('/shoe/shoeupdate/<id>', methods=["GET","POST"])
 def shoe_update(id):
@@ -52,7 +50,6 @@ def shoe_update(id):
             shoe.description = request.form.get('shoe')
 
             db.session.commit()
-            flash('Shoe was successfully updated')
-            return redirect(url_for('options_shoe.shoe_options'))
+            return redirect(url_for('data_shoe.shoe_data'))
     return render_template('shoe_new.html')
 
