@@ -29,8 +29,7 @@ def location_new():
             runlocation = Runlocation(request.form.get('runlocation',''))
             db.session.add(runlocation)
             db.session.commit()
-            flash('Run type was successfully added')
-            return redirect(url_for('options_location.location_options'))
+            return redirect(url_for('data_location.location_data'))
     return render_template('location_new.html')
 
 @delete_location.route('/location/locationdelete/<id>', methods=['POST','DELETE','GET'])
@@ -38,8 +37,7 @@ def location_delete(id):
     runlocation = Runlocation.query.get_or_404(id)
     db.session.delete(runlocation)
     db.session.commit()
-    flash('Run type deleted.')
-    return redirect(url_for('options_location.location_options'))
+    return redirect(url_for('data_location.location_data'))
 
 @update_location.route('/location/locationupdate/<id>', methods=["GET","POST"])
 def location_update(id):
@@ -48,6 +46,5 @@ def location_update(id):
         if runlocation:
             runlocation.description = request.form.get('runlocation')
             db.session.commit()
-            flash('Record was successfully updated')
-            return redirect(url_for('options_location.location_options'))
+            return redirect(url_for('data_location.location_data'))
     return render_template('location_new.html')
