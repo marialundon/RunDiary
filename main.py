@@ -4,6 +4,7 @@ from Controllers.RunController import options_run,new_run, data_run, update_run,
 from Controllers.RuntypeController import options_type,new_type, data_type, update_type, delete_type
 from Controllers.ShoeController import options_shoe,new_shoe, data_shoe, update_shoe, delete_shoe
 from Controllers.RunlocationController import options_location,new_location, data_location, update_location, delete_location
+from Controllers.AuthController import auth
 from flask import Flask
 from Model import db
 
@@ -51,6 +52,8 @@ app.register_blueprint(data_location)
 app.register_blueprint(update_location)
 
 app.register_blueprint(delete_location)
+
+app.register_blueprint(auth)
 
 
 
