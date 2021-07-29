@@ -3,6 +3,7 @@ from Model import db
 from flask import Blueprint, request, render_template, url_for, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from Model.User import User
+from flask_login import login_user
 
 auth = Blueprint('auth', __name__)
 
@@ -34,6 +35,22 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('auth.login'))
+
+@auth.route('/login', methods=['POST'])
+def login_post():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    remember = True if request.form.get('remember') else False
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user or not check_password_hash(user.password, password):
+        flash('Please check your login details and try again.')
+        return redirect(url_for('auth.login'))
+
+    login_user(user, remember=remember)
+    return redirect(url_for('auth.profile'))
+    
 
 @auth.route('/logout')
 def logout():
