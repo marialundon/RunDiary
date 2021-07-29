@@ -13,7 +13,6 @@ def login():
     return render_template('login.html')
 
 @auth.route('/signup')
-
 def signup():
     return render_template('signup.html')
 
@@ -60,6 +59,3 @@ def profile():
 def index():
     return render_template('index.html')
 
-@auth.route('/logout')
-def logout():
-    return 'Logout'

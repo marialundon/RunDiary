@@ -8,7 +8,6 @@ from Controllers.RunlocationController import options_location,new_location, dat
 from Controllers.AuthController import auth
 from flask import Flask, Blueprint
 from flask import Blueprint, request, render_template, url_for, redirect, flash
-from flask_login import current_user
 from Model import db
 
 app = Flask (__name__)
@@ -16,7 +15,6 @@ app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
 app.config['SECRET_KEY'] = "123456789"
 db.init_app(app)
 
-main = Blueprint('main', __name__)
 
 
 
@@ -62,7 +60,6 @@ app.register_blueprint(delete_location)
 
 app.register_blueprint(auth)
 
-app.register_blueprint(main)
 
 
 
@@ -78,13 +75,7 @@ def load_user(user_id):
     # since the user_id is just the primary key of our user table, use it in the query for the user
     return User.query.get(int(user_id))
 
-@main.route('/profile')
-def profile():
-    return render_template('profile.html',name = current_user.name)
 
-@main.route('/index')
-def index():
-    return render_template('index.html')
 
 if __name__ == '__main__':
     with app.app_context():
