@@ -4,6 +4,7 @@ from flask import Blueprint, request, render_template, url_for, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from Model.User import User
 from flask_login import login_user
+from flask_login import current_user
 
 auth = Blueprint('auth', __name__)
 
@@ -50,16 +51,15 @@ def login_post():
 
     login_user(user, remember=remember)
     return redirect(url_for('auth.profile'))
-    
-
-@auth.route('/logout')
-def logout():
-    return 'Logout'
 
 @auth.route('/profile')
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html',name = current_user.name)
 
 @auth.route('/index')
 def index():
     return render_template('index.html')
+
+@auth.route('/logout')
+def logout():
+    return 'Logout'
