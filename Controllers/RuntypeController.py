@@ -4,6 +4,7 @@ from Model.Runtype import Runtype
 from Model.Runlocation import Runlocation
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
+from flask_login import login_required
 
 options_type = Blueprint('options_type', __name__)
 new_type = Blueprint('new_type',__name__)
@@ -12,15 +13,18 @@ delete_type = Blueprint('delete_type',__name__)
 update_type = Blueprint('update_type',__name__)
 
 @options_type.route('/type')
+@login_required
 def type_options():
     return render_template('type_options.html', Runtype = Runtype.query.all())
 
 @data_type.route('/type/typedata')
+@login_required
 def type_data():
     runtype = Runtype.query.all()
     return render_template('type_data.html',data = runtype)
 
 @new_type.route('/type/typenew', methods = ['GET', 'POST'])
+@login_required
 def type_new():
     if request.method == 'POST':
         if not request.form.get('runtype',''):
@@ -34,6 +38,7 @@ def type_new():
     return render_template('type_new.html')
 
 @delete_type.route('/type/typedelete/<id>', methods=['POST','DELETE','GET'])
+@login_required
 def type_delete(id):
     runtype = Runtype.query.get_or_404(id)
     db.session.delete(runtype)
@@ -41,6 +46,7 @@ def type_delete(id):
     return redirect(url_for('data_type.type_data'))
 
 @update_type.route('/type/typeupdate/<id>', methods=["GET","POST"])
+@login_required
 def type_update(id):
     runtype = Runtype.query.get_or_404(id)
     if request.method == 'POST':

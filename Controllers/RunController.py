@@ -6,6 +6,7 @@ from Model.Shoe import Shoe
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
 from sqlalchemy import desc
+from flask_login import login_user, logout_user, login_required
 
 options_run = Blueprint('options_run', __name__)
 new_run = Blueprint('new_run',__name__)
@@ -15,6 +16,7 @@ delete_run = Blueprint('delete_run',__name__)
 update_run = Blueprint('update_run',__name__)
 
 @options_run.route("/")
+@login_required
 def run_options():
     runs = Run.query.order_by(desc(Run.date)).limit(1)
     return render_template('run_options.html',recent = runs)

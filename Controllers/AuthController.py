@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from Model.User import User
 from flask_login import login_user
 from flask_login import current_user
+from flask_login import login_user, logout_user, login_required
 
 auth = Blueprint('auth', __name__)
 
@@ -52,10 +53,18 @@ def login_post():
     return redirect(url_for('auth.profile'))
 
 @auth.route('/profile')
+@login_required
 def profile():
     return render_template('profile.html',name = current_user.name)
 
 @auth.route('/index')
 def index():
     return render_template('index.html')
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have logged out')
+    return redirect(url_for('auth.login'))
 
