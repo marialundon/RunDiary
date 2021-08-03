@@ -19,17 +19,17 @@
 
 <div class="row">      
 
-<div class="col-sm-3 text-center" style="background-color:lavender;">
+<div class="col-sm-3 text-center" style="background-color:rgb(245, 213, 184);">
    <h3> Running History <p></p> <a href = "{{ url_for('data_run.run_data') }}"> Click here
       </a></h3>
    </div>
 		
-<div class="col-sm-3 text-center" style="background-color:rgb(230, 250, 232);">
+<div class="col-sm-3 text-center" style="background-color:rgb(191, 238, 164);">
       <h3>New Run <p></p><a href = "{{ url_for('new_run.run_new') }}"> Click here
          </a></h3>
       </div>
 
-<div class="col-sm-6 text-center" style="background-color:rgb(250, 241, 230);">
+<div class="col-sm-6 text-center" style="background-color:rgb(190, 217, 252);">
    <h3>Most Recent Activity</h3>
          <table class="table table-hover">
          <thead>
@@ -37,7 +37,7 @@
                  <th>Type</th>
                  <th>Date</th>
                  <th>Length (km)</th>
-                 <th>Time (mins)</th>
+                 <th>Time (min)</th>
                  <th>Location </th>
                  <th>Shoe </th>
              </tr>
@@ -52,11 +52,29 @@
          
 </div>
 
+<div class="row">      
+
+   <div class="col-sm-4 text-center" style="background-color:rgb(245, 220, 137);">
+      <h3> View and edit run types <p></p> <a href = "{{ url_for('options_type.type_options') }}"> Click here
+         </a></h3>
+      </div>
+         
+   <div class="col-sm-4 text-center" style="background-color:rgb(247, 195, 211);">
+         <h3>View and edit run locations <p></p><a href = "{{ url_for('options_location.location_options') }}"> Click here
+            </a></h3>
+         </div>
+
+   <div class="col-sm-4 text-center" style="background-color:rgb(207, 243, 210);">
+            <h3>View and edit running shoes <p></p><a href = "{{ url_for('options_shoe.shoe_options') }}"> Click here
+               </a></h3>
+            </div>
+   
+            
+   </div>
+
 <div class="btn">
    <a href = "{{ url_for('auth.logout') }}"> Logout
       </a>
    </div>
-
-</div>
    
 </html>

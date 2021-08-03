@@ -31,4 +31,3 @@ class Run(db.Model):
         self.time = time
         self.shoe = shoe
         self.location = location
-       
