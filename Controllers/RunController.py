@@ -6,7 +6,8 @@ from Model.Shoe import Shoe
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
 from sqlalchemy import desc
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_required
+from flask_login import current_user
 
 options_run = Blueprint('options_run', __name__)
 new_run = Blueprint('new_run',__name__)
@@ -22,12 +23,13 @@ def run_options():
     return render_template('run_options.html',recent = runs)
 
 @new_run.route("/runs/new", methods=["GET","POST"])
+@login_required
 def run_new():
     if request.method == 'POST':
         if not request.form.get('typeofrun','') or not request.form.get('date','') or not request.form.get('shoe','') or not request.form.get('length','') or not request.form.get('time','') or not request.form.get('location',''):
             flash('Please enter all the fields', 'error')
         else:
-            run = Run(request.form.get('typeofrun'),request.form.get('date'),request.form.get('length'),request.form.get('time'), request.form.get('location'),request.form.get('shoe'))
+            run = Run(request.form.get('typeofrun'),request.form.get('date'),request.form.get('length'),request.form.get('time'), request.form.get('location'),request.form.get('shoe'),userid = current_user.id)
             
             db.session.add(run)
             db.session.commit()
@@ -35,11 +37,13 @@ def run_new():
     return render_template('run_new.html', Runtype = Runtype.query.all(),Runlocation = Runlocation.query.all(),Shoe = Shoe.query.all())
     
 @data_run.route('/runs/data')
+@login_required
 def run_data():
     runs = Run.query.all()
     return render_template('run_data.html',data = runs)
 
 @delete_run.route('/runs/delete/<id>', methods=['POST','DELETE','GET'])
+@login_required
 def run_delete(id):
     run = Run.query.get_or_404(id)
     db.session.delete(run)
@@ -47,6 +51,7 @@ def run_delete(id):
     return redirect(url_for('data_run.run_data'))
 
 @update_run.route('/runs/update/<id>', methods=["GET","POST"])
+@login_required
 def run_update(id):
     run = Run.query.get_or_404(id)
     if request.method == 'POST':

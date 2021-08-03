@@ -18,16 +18,18 @@ class Run(db.Model):
     location = db.Column(db.Integer, ForeignKey('runlocation.runlocation_id'))
     time = db.Column(db.String(10))
     shoe = db.Column(db.Integer, ForeignKey('shoes.shoe_id'))
+    userid = db.Column(db.Integer,ForeignKey('user.id' ))
     date = db.Column(db.String(10))
     typeofrun = db.Column(db.Integer, ForeignKey('runtype.runtype_id'))
     related_type_of_run = relationship('Runtype', backref='Run',lazy="joined")
     related_location_of_run = relationship('Runlocation', backref='Run',lazy="joined")
     related_shoe_of_run = relationship('Shoe', backref='Run',lazy="joined")
 
-    def __init__(self, typeofrun, date, length, time, location, shoe):
+    def __init__(self, typeofrun, date, length, time, location, shoe, userid):
         self.typeofrun = typeofrun
         self.date = date
         self.length = length
         self.time = time
         self.shoe = shoe
         self.location = location
+        self.userid = userid

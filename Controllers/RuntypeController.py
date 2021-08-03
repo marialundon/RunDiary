@@ -5,6 +5,7 @@ from Model.Runlocation import Runlocation
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
 from flask_login import login_required
+from flask_login import current_user
 
 options_type = Blueprint('options_type', __name__)
 new_type = Blueprint('new_type',__name__)
@@ -30,7 +31,7 @@ def type_new():
         if not request.form.get('runtype',''):
             flash('Please enter all the fields', 'error')
         else:
-            runtype = Runtype(request.form.get('runtype',''))
+            runtype = Runtype(request.form.get('runtype',''),userid = current_user.id)
             
             db.session.add(runtype)
             db.session.commit()

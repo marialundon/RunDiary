@@ -6,6 +6,7 @@ from Model.Shoe import Shoe
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
 from flask_login import login_required
+from flask_login import current_user
 
 options_shoe = Blueprint('options_shoe', __name__)
 new_shoe = Blueprint('new_shoe',__name__)
@@ -31,7 +32,7 @@ def shoe_new():
         if not request.form.get('shoe',''):
             flash('Please enter all the fields', 'error')
         else:
-            shoe = Shoe(request.form.get('shoe',''))
+            shoe = Shoe(request.form.get('shoe',''),userid = current_user.id)
             
             db.session.add(shoe)
             db.session.commit()

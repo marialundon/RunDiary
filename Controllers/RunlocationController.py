@@ -5,6 +5,7 @@ from Model.Runlocation import Runlocation
 from flask import Blueprint, request, render_template, flash, url_for, redirect
 from Model import db
 from flask_login import login_required
+from flask_login import current_user
 
 
 options_location = Blueprint('options_location', __name__)
@@ -31,7 +32,7 @@ def location_new():
         if not request.form.get('runlocation',''):
             flash('Please enter all the fields', 'error')
         else:
-            runlocation = Runlocation(request.form.get('runlocation',''))
+            runlocation = Runlocation(request.form.get('runlocation',''),userid = current_user.id)
             db.session.add(runlocation)
             db.session.commit()
             return redirect(url_for('data_location.location_data'))
