@@ -21,7 +21,7 @@ def type_options():
 @data_type.route('/type/typedata')
 @login_required
 def type_data():
-    runtype = Runtype.query.all()
+    runtype = Runtype.query.filter_by(userid = current_user.id)
     return render_template('type_data.html',data = runtype)
 
 @new_type.route('/type/typenew', methods = ['GET', 'POST'])

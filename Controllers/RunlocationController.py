@@ -22,7 +22,7 @@ def location_options():
 @data_location.route('/location/locationdata')
 @login_required
 def location_data():
-    runlocation = Runlocation.query.all()
+    runlocation = Runlocation.query.filter_by(userid = current_user.id)
     return render_template('location_data.html',data = runlocation)
 
 @new_location.route('/location/locationnew', methods = ['GET', 'POST'])

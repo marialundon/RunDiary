@@ -39,7 +39,7 @@ def run_new():
 @data_run.route('/runs/data')
 @login_required
 def run_data():
-    runs = Run.query.all()
+    runs = Run.query.filter_by(userid = current_user.id)
     return render_template('run_data.html',data = runs)
 
 @delete_run.route('/runs/delete/<id>', methods=['POST','DELETE','GET'])

@@ -22,7 +22,7 @@ def shoe_options():
 @data_shoe.route('/shoe/shoedata')
 @login_required
 def shoe_data():
-    shoe = Shoe.query.all()
+    shoe = Shoe.query.filter_by(userid = current_user.id)
     return render_template('shoe_data.html',data = shoe)
 
 @new_shoe.route('/shoe/shoenew', methods = ['GET', 'POST'])
