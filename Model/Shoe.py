@@ -4,11 +4,15 @@ from Model import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
+import json
 
 
 app = Flask('__main__')
-app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
-app.config['SECRET_KEY'] = "123456789"
+with open('config.json', 'r') as f:
+	config_data = json.load(f)
+
+app.config ['SQLALCHEMY_DATABASE_URI'] = config_data['SQLALCHEMY_DATABASE_URI']
+app.config ['SECRET_KEY'] = config_data['SECRET_KEY']
 
 
 db.init_app(app)
