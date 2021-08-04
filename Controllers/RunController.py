@@ -34,7 +34,7 @@ def run_new():
             db.session.add(run)
             db.session.commit()
             return redirect(url_for('data_run.run_data'))
-    return render_template('run_new.html', Runtype = Runtype.query.all(),Runlocation = Runlocation.query.all(),Shoe = Shoe.query.all())
+    return render_template('run_new.html', Runtype = Runtype.query.filter_by(userid = current_user.id),Runlocation = Runlocation.query.filter_by(userid = current_user.id),Shoe = Shoe.query.filter_by(userid = current_user.id))
     
 @data_run.route('/runs/data')
 @login_required
@@ -66,5 +66,5 @@ def run_update(id):
 
             db.session.commit()
             return redirect(url_for('data_run.run_data'))
-    return render_template('run_update.html',Runtype = Runtype.query.all(), Runlocation = Runlocation.query.all(),runtobeupdated=run,Shoe = Shoe.query.all())
+    return render_template('run_update.html',Runtype = Runtype.query.filter_by(userid = current_user.id), Runlocation = Runlocation.query.filter_by(userid = current_user.id),runtobeupdated=run,Shoe = Shoe.query.filter_by(userid = current_user.id))
 
