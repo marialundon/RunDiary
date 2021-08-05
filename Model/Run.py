@@ -4,11 +4,14 @@ from Model import db
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
+import json
 
 app = Flask('__main__')
-app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
-app.config['SECRET_KEY'] = "123456789"
+with open('config.json', 'r') as f:
+	config_data = json.load(f)
 
+app.config ['SQLALCHEMY_DATABASE_URI'] = config_data['SQLALCHEMY_DATABASE_URI']
+app.config ['SECRET_KEY'] = config_data['SECRET_KEY']
 
 db.init_app(app)
 class Run(db.Model):
@@ -18,17 +21,18 @@ class Run(db.Model):
     location = db.Column(db.Integer, ForeignKey('runlocation.runlocation_id'))
     time = db.Column(db.String(10))
     shoe = db.Column(db.Integer, ForeignKey('shoes.shoe_id'))
+    userid = db.Column(db.Integer,ForeignKey('user.id' ))
     date = db.Column(db.String(10))
     typeofrun = db.Column(db.Integer, ForeignKey('runtype.runtype_id'))
     related_type_of_run = relationship('Runtype', backref='Run',lazy="joined")
     related_location_of_run = relationship('Runlocation', backref='Run',lazy="joined")
     related_shoe_of_run = relationship('Shoe', backref='Run',lazy="joined")
 
-    def __init__(self, typeofrun, date, length, time, location, shoe):
+    def __init__(self, typeofrun, date, length, time, location, shoe, userid):
         self.typeofrun = typeofrun
         self.date = date
         self.length = length
         self.time = time
         self.shoe = shoe
         self.location = location
-       
+        self.userid = userid
