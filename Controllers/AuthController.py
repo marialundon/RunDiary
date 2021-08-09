@@ -1,3 +1,4 @@
+from operator import mod
 from flask import Blueprint
 from Model import db
 from flask import Blueprint, request, render_template, url_for, redirect, flash
@@ -6,12 +7,14 @@ from Model.User import User
 from flask_login import login_user
 from flask_login import current_user
 from flask_login import login_user, logout_user, login_required
-
+from pathlib import Path
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
 def login():
-    return render_template('~/login.html')
+    mod_path = Path(__file__).parent
+    src_path_1 = (mod_path / 'login.html').resolve()
+    return render_template(src_path_1.name)
 
 @auth.route('/signup')
 def signup():
