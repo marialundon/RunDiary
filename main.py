@@ -12,11 +12,19 @@ from flask import Blueprint, request, render_template, url_for, redirect, flash
 from Model import db
 
 app = Flask (__name__)
-with open('config.json', 'r') as f:
-	config_data = json.load(f)
 
-app.config ['SQLALCHEMY_DATABASE_URI'] = config_data['SQLALCHEMY_DATABASE_URI']
-app.config ['SECRET_KEY'] = config_data['SECRET_KEY']
+import os
+is_prod = os.environ.get('IS_HEROKU', None)
+
+if is_prod:
+    app.config ['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', None)
+    app.config ['SECRET_KEY'] = os.environ.get('SECRET_KEY', None)
+else:
+    with open('config.json', 'r') as f:
+        config_data = json.load(f)
+
+    app.config ['SQLALCHEMY_DATABASE_URI'] = config_data['SQLALCHEMY_DATABASE_URI']
+    app.config ['SECRET_KEY'] = config_data['SECRET_KEY']
 db.init_app(app)
 
 

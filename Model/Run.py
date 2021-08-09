@@ -7,11 +7,18 @@ from sqlalchemy.orm import relationship
 import json
 
 app = Flask('__main__')
-with open('config.json', 'r') as f:
-	config_data = json.load(f)
+import os
+is_prod = os.environ.get('IS_HEROKU', None)
 
-app.config ['SQLALCHEMY_DATABASE_URI'] = config_data['SQLALCHEMY_DATABASE_URI']
-app.config ['SECRET_KEY'] = config_data['SECRET_KEY']
+if is_prod:
+    app.config ['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', None)
+    app.config ['SECRET_KEY'] = os.environ.get('SECRET_KEY', None)
+else:
+    with open('config.json', 'r') as f:
+        config_data = json.load(f)
+
+    app.config ['SQLALCHEMY_DATABASE_URI'] = config_data['SQLALCHEMY_DATABASE_URI']
+    app.config ['SECRET_KEY'] = config_data['SECRET_KEY']
 
 db.init_app(app)
 class Run(db.Model):
