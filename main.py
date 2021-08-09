@@ -12,7 +12,7 @@ from flask import Blueprint, request, render_template, url_for, redirect, flash
 from Model import db
 
 import os
-app = Flask (__name__)
+app = Flask (__name__, template_folder = 'Templates')
 
 is_prod = os.environ.get('IS_HEROKU', None)
 
