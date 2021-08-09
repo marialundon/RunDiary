@@ -1,5 +1,6 @@
 # pylint: disable=no-member 
 
+import json
 from flask_login import LoginManager
 from Controllers.RunController import options_run,new_run, data_run, update_run, delete_run
 from Controllers.RuntypeController import options_type,new_type, data_type, update_type, delete_type
@@ -11,8 +12,11 @@ from flask import Blueprint, request, render_template, url_for, redirect, flash
 from Model import db
 
 app = Flask (__name__)
-app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///runs.sqlite3'
-app.config['SECRET_KEY'] = "123456789"
+with open('config.json', 'r') as f:
+	config_data = json.load(f)
+
+app.config ['SQLALCHEMY_DATABASE_URI'] = config_data['SQLALCHEMY_DATABASE_URI']
+app.config ['SECRET_KEY'] = config_data['SECRET_KEY']
 db.init_app(app)
 
 
