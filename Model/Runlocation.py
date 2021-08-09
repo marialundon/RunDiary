@@ -5,8 +5,8 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 import json
-
 import os
+app = Flask('__main__')
 is_prod = os.environ.get('IS_HEROKU', None)
 
 if is_prod:

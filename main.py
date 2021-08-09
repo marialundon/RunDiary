@@ -11,9 +11,9 @@ from flask import Flask, Blueprint
 from flask import Blueprint, request, render_template, url_for, redirect, flash
 from Model import db
 
+import os
 app = Flask (__name__)
 
-import os
 is_prod = os.environ.get('IS_HEROKU', None)
 
 if is_prod:
