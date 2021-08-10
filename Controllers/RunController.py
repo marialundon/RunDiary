@@ -19,7 +19,7 @@ update_run = Blueprint('update_run',__name__)
 @options_run.route("/")
 @login_required
 def run_options():
-    runs = Run.query.order_by(desc(Run.date)).limit(1)
+    runs = Run.query.filter_by(userid = current_user.id).order_by(desc(Run.date)).limit(1)
     return render_template('run_options.html',recent = runs)
 
 @new_run.route("/runs/new", methods=["GET","POST"])
