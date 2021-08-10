@@ -10,7 +10,7 @@
         <body>
             <div class="card" style="width: 25rem;">
                <div class="card-body">
-                 <h5 class="card-title">Run shoe details</h5>
+                 <h5 class="card-title">Shoe details</h5>
          <div class="container px-0.5">
          <div class="col-sm-12">
       
@@ -22,7 +22,9 @@
       
       <form action = "{{ request.path }}" method = "post">
         <label for = "shoe">Shoe</label><p>
-        <input type = "text" name = "shoe" placeholder = "Enter shoe..." />
+        <input type = "text" name = "shoe" placeholder = "Enter shoe..." /><p>
+        <label for = "max_distance">Max distance for shoe</label>
+        <input type = "number" name = "max_distance" placeholder = "Enter max distance..." />
 
     </div>
     <input type = "submit" class="btn btn-primary"  value = "Submit" />

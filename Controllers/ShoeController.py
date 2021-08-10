@@ -32,7 +32,7 @@ def shoe_new():
         if not request.form.get('shoe',''):
             flash('Please enter all the fields', 'error')
         else:
-            shoe = Shoe(request.form.get('shoe',''),userid = current_user.id)
+            shoe = Shoe(request.form.get('shoe',''),request.form.get('max_distance',''),userid = current_user.id)
             
             db.session.add(shoe)
             db.session.commit()
