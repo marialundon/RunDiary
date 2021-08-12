@@ -58,7 +58,7 @@ def run_update(id):
     run = Run.query.get_or_404(id)
     if request.method == 'POST':
         if run:
-
+            old_distance = run.length
             run.typeofrun = request.form.get('typeofrun')
             run.date= request.form.get('date')
             run.length = request.form.get('length')
@@ -66,6 +66,10 @@ def run_update(id):
             run.location = request.form.get('location')
             run.shoe = request.form.get('shoe')
 
+            db.session.commit()
+
+            currentshoe = Shoe.query.filter_by(id = run.shoe).first()
+            currentshoe.current_distance = currentshoe.current_distance - int(old_distance) + int(run.length)
             db.session.commit()
             return redirect(url_for('data_run.run_data'))
     return render_template('run_update.html',Runtype = Runtype.query.filter_by(userid = current_user.id), Runlocation = Runlocation.query.filter_by(userid = current_user.id),runtobeupdated=run,Shoe = Shoe.query.filter_by(userid = current_user.id))
