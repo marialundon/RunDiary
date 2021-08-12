@@ -4,7 +4,7 @@ from flask_login import UserMixin
 
 import json
 
-app = Flask('__main__')
+app = Flask('__main__',template_folder = 'Templates')
 import os
 is_prod = os.environ.get('IS_HEROKU', None)
 

@@ -30,10 +30,10 @@ class Shoe(db.Model):
     description = db.Column(db.String(100))
     max_distance = db.Column(db.Integer)
     current_distance = db.Column(db.Integer)
-    remaining_distance = db.Column(db.Integer)
     userid = db.Column(db.Integer,ForeignKey('user.id' ))
 
-    def __init__(self, description,max_distance,userid):
+    def __init__(self, description,max_distance,current_distance,userid):
         self.description = description
         self.max_distance = max_distance
+        self.current_distance = current_distance
         self.userid = userid

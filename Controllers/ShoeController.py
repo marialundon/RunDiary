@@ -32,7 +32,7 @@ def shoe_new():
         if not request.form.get('shoe',''):
             flash('Please enter all the fields', 'error')
         else:
-            shoe = Shoe(request.form.get('shoe',''),request.form.get('max_distance',''),userid = current_user.id)
+            shoe = Shoe(request.form.get('shoe',''),request.form.get('max_distance',''), current_distance = 0, userid = current_user.id)
             
             db.session.add(shoe)
             db.session.commit()
@@ -55,6 +55,7 @@ def shoe_update(id):
         if shoe:
 
             shoe.description = request.form.get('shoe')
+            shoe.max_distance= request.form.get('max_distance')
 
             db.session.commit()
             return redirect(url_for('data_shoe.shoe_data'))

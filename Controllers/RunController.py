@@ -32,6 +32,8 @@ def run_new():
             run = Run(request.form.get('typeofrun'),request.form.get('date'),request.form.get('length'),request.form.get('time'), request.form.get('location'),request.form.get('shoe'),userid = current_user.id)
             
             db.session.add(run)
+            currentshoe = Shoe.query.filter_by(id = run.shoe).first()
+            currentshoe.current_distance = currentshoe.current_distance + int(run.length)
             db.session.commit()
             return redirect(url_for('data_run.run_data'))
     return render_template('run_new.html', Runtype = Runtype.query.filter_by(userid = current_user.id),Runlocation = Runlocation.query.filter_by(userid = current_user.id),Shoe = Shoe.query.filter_by(userid = current_user.id))
