@@ -50,6 +50,9 @@ def run_delete(id):
     run = Run.query.get_or_404(id)
     db.session.delete(run)
     db.session.commit()
+    currentshoe = Shoe.query.filter_by(id = run.shoe).first()
+    currentshoe.current_distance = currentshoe.current_distance - run.length
+    db.session.commit()
     return redirect(url_for('data_run.run_data'))
 
 @update_run.route('/runs/update/<id>', methods=["GET","POST"])
