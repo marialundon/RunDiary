@@ -10,7 +10,7 @@ from flask_login import login_user, logout_user, login_required
 from pathlib import Path
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login')
+@auth.route('/')
 def login():
     mod_path = Path(__file__).parent
     src_path_1 = (mod_path / 'login.html').resolve()

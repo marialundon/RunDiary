@@ -16,7 +16,7 @@ recent_run = Blueprint('recent_run',__name__)
 delete_run = Blueprint('delete_run',__name__)
 update_run = Blueprint('update_run',__name__)
 
-@options_run.route("/")
+@options_run.route("/dashboard")
 @login_required
 def run_options():
     runs = Run.query.filter_by(userid = current_user.id).order_by(desc(Run.date)).limit(1)
