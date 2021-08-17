@@ -1,7 +1,7 @@
 from operator import mod
 from flask import Blueprint
 from Model import db
-from flask import Blueprint, request, render_template, url_for, redirect, flash
+from flask import Blueprint, request, render_template, url_for, redirect, flash, Markup
 from werkzeug.security import generate_password_hash, check_password_hash
 from Model.User import User
 from flask_login import login_user
@@ -38,6 +38,10 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
 
+    flash(Markup('''<div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Account successfully created, </strong> Please log in to continue
+          </div>'''))
     return redirect(url_for('auth.login'))
 
 @auth.route('/login', methods=['POST'])
@@ -49,7 +53,10 @@ def login_post():
     user = User.query.filter_by(email=email).first()
 
     if not user or not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.')
+        flash(Markup('''<div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Incorrect Username or Password,</strong> Please try again
+          </div>'''))
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
@@ -59,6 +66,5 @@ def login_post():
 @login_required
 def logout():
     logout_user()
-    flash('You have logged out')
     return redirect(url_for('auth.login'))
 
