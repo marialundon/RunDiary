@@ -30,6 +30,7 @@ def signup_post():
     user = User.query.filter_by(email=email).first()
 
     if user: 
+        flash('Email address already exists')
         return redirect(url_for('auth.signup'))
 
     new_user = User(email=email, name=name, password = generate_password_hash(password, method='sha256'))
@@ -48,6 +49,7 @@ def login_post():
     user = User.query.filter_by(email=email).first()
 
     if not user or not check_password_hash(user.password, password):
+        flash('Please check your login details and try again.')
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
@@ -57,5 +59,6 @@ def login_post():
 @login_required
 def logout():
     logout_user()
+    flash('You have logged out')
     return redirect(url_for('auth.login'))
 
